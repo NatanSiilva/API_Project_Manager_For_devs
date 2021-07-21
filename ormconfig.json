@@ -1,0 +1,13 @@
+{
+  "type": "postgres",
+  "host": "localhost",
+  "port": "5432",
+  "username": "younner",
+  "password": 153306,
+  "database": "db_project_manager",
+  "entities": ["./src/models/*.ts"],
+  "migrations": ["./src/database/migrations/*.ts"],
+  "cli": {
+    "migrationsDir": "./src/database/migrations"
+  }
+}
