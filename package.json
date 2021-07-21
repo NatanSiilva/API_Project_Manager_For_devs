@@ -1,0 +1,8 @@
+{
+  "name": "back-end",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:NatanSiilva/teste-typeorm.git",
+  "author": "Natanael Silva <natanaelsilva.progjs@gmail.com>",
+  "license": "MIT"
+}
