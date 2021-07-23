@@ -2,6 +2,8 @@ import { Request, Response } from 'express';
 import AppError from '../errors/AppError';
 import ClientRepository from '../repositories/ClientRepository';
 import CreateClientService from '../services/CreateClientService';
+import DeleteClientService from '../services/DeleteClientService';
+import PaginatedClientService from '../services/PaginatedClientService';
 import UpdateClientService from '../services/UpdateClientService';
 
 class ClientController {
@@ -12,6 +14,33 @@ class ClientController {
 
     if (!clients) {
       throw new AppError('Cadastrar novos clientes', 401);
+    }
+
+    return res.json(clients);
+  }
+
+  public async paginated(req: Request, res: Response): Promise<Response> {
+    const { page } = req.query;
+
+    const clientRepository = new ClientRepository();
+    const clientPaginated = new PaginatedClientService(clientRepository);
+
+    const clients = await clientPaginated.execute({
+      page: page !== undefined ? parseInt(page.toString(), 10) : 0, //decimal, ou 0 pq não passou o page
+    });
+
+    return res.json(clients);
+  }
+
+  public async search(req: Request, res: Response): Promise<Response> {
+    const { name } = req.query;
+
+    const clientRepository = new ClientRepository();
+
+    const clients = await clientRepository.findAllName(name?.toString() || '');
+
+    if (clients.length === 0) {
+      throw new AppError('Nenhum cliente encontrado', 404);
     }
 
     return res.json(clients);
@@ -49,6 +78,23 @@ class ClientController {
     });
 
     return res.json(client);
+  }
+
+  public async destroy(req: Request, res: Response): Promise<Response> {
+    const { id } = req.params;
+
+    const clientRepository = new ClientRepository();
+    const destroy = new DeleteClientService(clientRepository);
+
+    await destroy.execute(id);
+
+    return res.json({
+      success: true,
+      data: {
+        status: 201,
+        message: 'Cliente removido com sucesso',
+      },
+    });
   }
 }
 
