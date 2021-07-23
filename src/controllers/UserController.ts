@@ -4,6 +4,14 @@ import UserRepository from '../repositories/UserRepository';
 import EnableUserService from '../services/EnableUserService';
 
 class UserController {
+  public async index(req: Request, res: Response): Promise<Response> {
+    const userRespository = new UserRepository();
+
+    const users = await userRespository.getAll();
+
+    return res.json(users);
+  }
+
   public async create(request: Request, response: Response): Promise<Response> {
     const { name, email, password } = request.body;
 
