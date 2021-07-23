@@ -35,6 +35,10 @@ class SessionService {
       throw new AppError('Credencias inválidas', 401);
     }
 
+    if (!user.active) {
+      throw new AppError('Usuário inativo', 401);
+    }
+
     const token = sign({ id: user.id }, process.env.APP_SECRET as string, {
       expiresIn: '1d',
     });
