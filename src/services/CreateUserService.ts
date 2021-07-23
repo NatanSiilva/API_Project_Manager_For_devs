@@ -1,4 +1,5 @@
 import { hash } from 'bcryptjs';
+import { json } from 'express';
 import IUserRepository from '../repositories/IUserRepository';
 import UserRepository from '../repositories/UserRepository';
 import User from '../models/User';
