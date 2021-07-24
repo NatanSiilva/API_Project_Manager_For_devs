@@ -34,7 +34,7 @@
     "camelcase": "off",
     "class-methods-use-this": "off",
     "no-console": "off",
-    "@typescript-eslint/explicit-module-boundary-types": "off",
+    // "@typescript-eslint/explicit-module-boundary-types": "off"
   },
   "settings": {
     "import/resolver": {

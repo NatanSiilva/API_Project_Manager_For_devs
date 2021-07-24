@@ -1,6 +1,6 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export default class CreateClients1627009050569 implements MigrationInterface {
+export default class CreateClients1601251430238 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
@@ -52,6 +52,6 @@ export default class CreateClients1627009050569 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    queryRunner.dropTable('clients');
+    await queryRunner.dropTable('clients');
   }
 }
