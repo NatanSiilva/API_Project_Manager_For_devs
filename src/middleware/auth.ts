@@ -2,7 +2,11 @@ import { NextFunction, Request, Response } from 'express';
 import { verify } from 'jsonwebtoken';
 import AppError from '../errors/AppError';
 
-const authentication = (req: Request, res: Response, next: NextFunction) => {
+const authentication = (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<any> | void => {
   const authHeader = req.headers.authorization;
 
   if (!authHeader) {

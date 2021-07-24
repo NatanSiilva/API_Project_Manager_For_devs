@@ -12,8 +12,8 @@ class ClientController {
 
     const clients = await clientRepository.getAll();
 
-    if (!clients) {
-      throw new AppError('Cadastrar novos clientes', 401);
+    if (clients.length === 0) {
+      throw new AppError('No client found', 401);
     }
 
     return res.json(clients);

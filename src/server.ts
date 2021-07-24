@@ -8,6 +8,8 @@ import './database';
 import routes from './routes';
 import AppError from './errors/AppError';
 
+const port = process.env.PORT || 3333;
+
 const app = express();
 
 app.use(express.json());
@@ -29,4 +31,6 @@ app.use((err: Error, req: Request, res: Response, _: NextFunction) => {
     .json({ status: 'error', message: 'Internal Server Error' });
 });
 
-app.listen(3333);
+app.listen(port, () =>
+  console.log(`🚀  Server is running at: http://localhost:${port}`),
+);
