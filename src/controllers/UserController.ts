@@ -9,7 +9,12 @@ class UserController {
 
     const users = await userRespository.getAll();
 
-    return res.json(users);
+    const newUsers = [];
+    for (let { id, name, email, active, created_at, updated_at } of users) {
+      newUsers.push({ id, name, email, active, created_at, updated_at });
+    }
+
+    return res.json(newUsers);
   }
 
   public async create(request: Request, response: Response): Promise<Response> {

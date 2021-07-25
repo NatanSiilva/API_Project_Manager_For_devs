@@ -10,6 +10,7 @@ const projectController = new ProjectController();
 projectRoutes.use(authentication);
 
 projectRoutes.get('/', projectController.index);
+projectRoutes.get('/user/:user_id', projectController.indexOfUser);
 projectRoutes.get('/:id', projectController.show);
 projectRoutes.post(
   '/',
