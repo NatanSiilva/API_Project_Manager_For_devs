@@ -4,6 +4,7 @@ import ClientRepository from '../repositories/ClientRepository';
 import ProjectRepository from '../repositories/ProjectRepository';
 import CreateProjectService from '../services/CreateProjectService';
 import ListAllProjectService from '../services/ListAllProjectService';
+import ListAllProjectsOfUserService from '../services/ListAllProjectsOfUserService';
 import ShowProjectService from '../services/ShowProjectService';
 import UpdateProjectService from '../services/UpdateProjectService';
 import UpdateProjectStatusService from '../services/UpdateProjectStatusService';
@@ -23,6 +24,21 @@ class ProjectController {
     return res.json(projects);
   }
 
+  public async indexOfUser(req: Request, res: Response): Promise<Response> {
+    const { user_id } = req.params;
+    const projectRepository = new ProjectRepository();
+    const projectService = new ListAllProjectsOfUserService(projectRepository);
+
+    const projects = await projectService.execute(user_id);
+
+    if (!projects) {
+      throw new AppError('No project found', 401);
+    }
+
+    return res.json(projects);
+  }
+
+
   public async show(req: Request, res: Response): Promise<Response> {
     const { id } = req.params;
 
@@ -39,7 +55,7 @@ class ProjectController {
   }
 
   public async create(req: Request, res: Response): Promise<Response> {
-    const { name, client_id, description } = req.body;
+    const { name, client_id, description, user_id } = req.body;
 
     const projectRepository = new ProjectRepository();
     const clientRepository = new ClientRepository();
@@ -52,6 +68,7 @@ class ProjectController {
     const project = await createProject.execute({
       name,
       client_id,
+      user_id,
       description,
       logo: req.file?.filename,
     });

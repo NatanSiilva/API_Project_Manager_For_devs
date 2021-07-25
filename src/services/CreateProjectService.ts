@@ -7,6 +7,7 @@ import IProjectRepository from '../repositories/IProjectRepository';
 interface IRequest {
   name: string;
   client_id: string;
+  user_id: string;
   logo?: string;
   description: string;
 }
@@ -26,6 +27,7 @@ class CreateProjectService {
 
   public async execute({
     name,
+    user_id,
     client_id,
     description,
     logo,
@@ -38,10 +40,11 @@ class CreateProjectService {
 
     const project = this.projectRepository.create({
       name,
+      user_id,
       client_id,
       description,
       logo,
-      status: ProjectStatus.NEW
+      status: ProjectStatus.NEW,
     });
 
     return project;
