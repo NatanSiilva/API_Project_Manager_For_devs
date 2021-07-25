@@ -7,7 +7,7 @@ import IProjectRepository from '../repositories/IProjectRepository';
 interface IRequest {
   name: string;
   client_id: string;
-  logo: string;
+  logo?: string;
   description: string;
 }
 

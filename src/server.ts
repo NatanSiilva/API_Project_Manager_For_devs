@@ -2,9 +2,11 @@
 import 'reflect-metadata';
 import './config/env';
 import 'express-async-errors';
-import morgan from 'morgan';
-import express, { NextFunction, Request, Response } from 'express';
 import './database';
+import express, { NextFunction, Request, Response } from 'express';
+import { resolve } from 'path';
+import morgan from 'morgan';
+import cors from 'cors';
 import routes from './routes';
 import AppError from './errors/AppError';
 
@@ -14,7 +16,8 @@ const app = express();
 
 app.use(express.json());
 app.use(morgan('dev'));
-
+app.use(cors());
+app.use('/files', express.static(resolve(__dirname, '..', 'uploads')));
 app.use(routes);
 
 app.use((err: Error, req: Request, res: Response, _: NextFunction) => {

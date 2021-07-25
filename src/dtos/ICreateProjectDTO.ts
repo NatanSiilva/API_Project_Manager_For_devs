@@ -4,6 +4,6 @@ export default interface ICreateProjectDTO {
   name: string;
   client_id: string;
   status: ProjectStatus;
-  logo: string;
+  logo?: string;
   description: string;
 }
